@@ -1,7 +1,7 @@
 export default class TaskModel {
-  title;
-  createdAt;
-  datetime;
+  title = '';
+  createdAt = '';
+  datetime = '';
   construct (task) {
     this.title = task.title
     this.createdAt = task.createdAt

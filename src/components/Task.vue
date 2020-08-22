@@ -1,13 +1,45 @@
 <template>
-<div>
-
-</div>
+  <div>
+    <vue-header></vue-header>
+    <div class="container">
+      <div class="row justify-content-md-center mt-50" v-if="task">
+        <div class="col-md-6">
+          <div class="card">
+            <h4 class="card-title mt-50">{{ id ? 'Edit': 'New'}} Task</h4>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="taskTitle">Title</label>
+                  </div>
+                  <div class="form-group col-md-8">
+                    <input type="text" class="form-control" v-model="task.title" id="taskTitle" placeholder="buy grocery">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="taskDateTime">DateTime</label>
+                  </div>
+                  <div class="form-group col-md-8">
+                    <VueCtkDateTimePicker id="taskDateTime" v-model="task.datetime" v-bind:min-date="new Date(Date.now() - 8640000)" />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">{{ id ? 'Update': 'Create'}}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import TaskModel from '@/model/Task'
+import vueHeader from './header'
+import TaskModel from '@/models/Task'
 export default {
   name: 'Task',
+  components: { vueHeader },
   data () {
     return {
       task: null,
@@ -26,4 +58,7 @@ export default {
 </script>
 
 <style>
+.mt-50{
+  margin-top: 50px;
+}
 </style>

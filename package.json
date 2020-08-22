@@ -16,10 +16,11 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/vue-fontawesome": "^0.1.10",
-    "jquery": "^3.5.1",
     "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
     "popper": "^1.0.1",
     "vue": "^2.5.2",
+    "vue-ctk-date-time-picker": "^2.5.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
