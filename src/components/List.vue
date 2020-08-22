@@ -9,23 +9,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr v-for="(task, index) in tasks " :key="index">
         <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
+        <td>{{task.title}}</td>
+        <td>{{task.time}}</td>
         <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
       </tr>
     </tbody>
   </table>
@@ -34,14 +22,12 @@
 <script>
 export default {
   name: 'taskList',
-  props: [ 'taskList' ],
+  props: [ 'tasks' ],
   data () {
-    return {
-      task: {}
-    }
+    return {}
   },
   mounted () {
-    this.$set(this, 'taskList', this.taskList)
+    console.log(this.tasks)
   },
   methods: {}
 }

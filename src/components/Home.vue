@@ -3,7 +3,7 @@
     <vue-header></vue-header>
     <div class="container">
       <h2>List of tasks</h2>
-      <task-list v-if="list" task-list="list"></task-list>
+      <task-list v-if="list" v-bind:tasks="list"></task-list>
     </div>
   </div>
 </template>
@@ -21,7 +21,11 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      this.list = []
+      this.list = [
+        {title: 'task1', time: new Date()},
+        {title: 'task2', time: new Date()},
+        {title: 'task3', time: new Date()},
+        {title: 'task4', time: new Date()}]
     }, 3000)
   },
   methods: {}
