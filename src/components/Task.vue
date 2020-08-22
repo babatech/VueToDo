@@ -7,7 +7,7 @@
           <div class="card">
             <h4 class="card-title mt-50">{{ id ? 'Edit': 'New'}} Task</h4>
             <div class="card-body">
-              <form>
+              <form @submit="checkForm">
                 <div class="row">
                   <div class="col-md-4">
                     <label for="taskTitle">Title</label>
@@ -21,7 +21,7 @@
                     <label for="taskDateTime">DateTime</label>
                   </div>
                   <div class="form-group col-md-8">
-                    <VueCtkDateTimePicker id="taskDateTime" v-model="task.datetime" v-bind:min-date="new Date(Date.now() - 8640000)" />
+                    <VueCtkDateTimePicker id="taskDateTime" v-model="task.datetime" v-bind:min-date="new Date().toISOString()" />
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">{{ id ? 'Update': 'Create'}}</button>
@@ -43,7 +43,8 @@ export default {
   data () {
     return {
       task: null,
-      id: null
+      id: null,
+      errors: []
     }
   },
   mounted () {
@@ -53,7 +54,26 @@ export default {
       this.task = new TaskModel()
     }
   },
-  methods: {}
+  methods: {
+    checkForm: function (e) {
+      e.preventDefault()
+      this.errors = []
+      if (!this.task.title) {
+        this.errors.push('Title required.')
+      }
+      if (!this.task.datetime) {
+        this.errors.push('Date required.')
+      }
+      if (this.errors.length > 0) {
+        return
+      }
+      if (!this.id) {
+        this.task.createdAt = new Date().toISOString()
+      }
+      this.task.updateAt = new Date().toISOString()
+      console.log(this.task)
+    }
+  }
 }
 </script>
 
