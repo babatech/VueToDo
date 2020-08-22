@@ -4,7 +4,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Task</th>
-        <th scope="col">Time</th>
+        <th scope="col">due</th>
         <th scope="col"><font-awesome-icon :icon="['fas', 'tools']" /></th>
       </tr>
     </thead>
@@ -12,7 +12,7 @@
       <tr v-for="(task, index) in tasks " :key="index">
         <th scope="row">1</th>
         <td>{{task.title}}</td>
-        <td>{{task.time}}</td>
+        <td>{{task.datetime}}</td>
         <td>@mdo</td>
       </tr>
     </tbody>
