@@ -3,21 +3,27 @@
     <vue-header></vue-header>
     <div class="container">
       <h2>List of tasks</h2>
+      <task-list v-if="list" task-list="list"></task-list>
     </div>
   </div>
 </template>
 
 <script>
 import vueHeader from './header'
+import taskList from './List'
 export default {
   name: 'Home',
-  components: { vueHeader },
+  components: { vueHeader, taskList },
   data () {
     return {
-      list: []
+      list: null
     }
   },
-  mounted () {},
+  mounted () {
+    setTimeout(() => {
+      this.list = []
+    }, 3000)
+  },
   methods: {}
 }
 </script>
