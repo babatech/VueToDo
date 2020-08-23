@@ -3,7 +3,7 @@
     <vue-header></vue-header>
     <div class="container">
       <div class="row justify-content-md-center mt-50" v-if="task">
-        <div class="col-md-6">
+        <div class="col-md-7">
           <div class="card">
             <h4 class="card-title mt-50">{{ id ? 'Edit': 'New'}} Task</h4>
             <div class="card-body">
@@ -18,7 +18,15 @@
                 </div>
                 <div class="row">
                   <div class="col-md-4">
-                    <label for="taskDateTime">DateTime</label>
+                    <label for="taskDescription">Description</label>
+                  </div>
+                  <div class="form-group col-md-8">
+                    <textarea class="form-control" v-model="task.description" id="taskDescription" placeholder="Enter task description here"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="taskDateTime">Due Date</label>
                   </div>
                   <div class="form-group col-md-8">
                     <VueCtkDateTimePicker
@@ -32,6 +40,7 @@
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">{{ id ? 'Update': 'Create'}}</button>
+                <button type="button" class="btn btn-secondary" @click="redirectTo()">Cancel</button>
               </form>
             </div>
           </div>
