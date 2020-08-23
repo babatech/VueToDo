@@ -17,6 +17,9 @@ export default {
     return api.delete('/tasks/' + id).then((res) => { return res })
   },
   getAllTasks (queryParam) {
-    return api.get('/tasks', queryParam).then((res) => { return res })
+    if (!queryParam._sort) {
+      queryParam._sort = 'datetime'
+    }
+    return api.get('/tasks', { params: queryParam }).then((res) => { return res })
   }
 }

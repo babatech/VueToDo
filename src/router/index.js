@@ -19,6 +19,11 @@ export default new Router({
       component: Task
     },
     {
+      path: '/view/:id',
+      name: 'Task Details',
+      component: Task
+    },
+    {
       path: '',
       name: 'To Do App',
       component: Home

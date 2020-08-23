@@ -46,6 +46,40 @@
           </div>
         </div>
       </div>
+      <div class="row justify-content-md-center mt-50" v-if="viewTask">
+        <div class="col-md-7">
+          <div class="card">
+            <h4 class="card-title mt-50">Task Detail</h4>
+            <div class="card-body task-detail">
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <p class="ta-right"><font-awesome-icon :icon="['fas', viewTask.state ? 'check-square' : 'clipboard-list']" /> {{viewTask.state ? 'Complete': 'Pending'}}</p>
+                </div>
+                <div class="col-md-12">
+                  <h5>Title</h5>
+                  <p>{{viewTask.title}}</p>
+                </div>
+                <div class="col-md-12">
+                  <h5>Description</h5>
+                  <p>{{viewTask.description}}</p>
+                </div>
+                <div class="col-md-12">
+                  <h5>Due Date</h5>
+                  <p>{{viewTask.datetime}}</p>
+                </div>
+                <div class="col-md-12">
+                  <h5>Created on</h5>
+                  <p>{{viewTask.createdAt}}</p>
+                </div>
+              </div>
+              <a @click="redirectTo('/edit/' + id)" class="btn btn-primary">Edit</a>
+              <a @click="redirectTo()" class="btn btn-secondary">Back</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +94,7 @@ export default {
   data () {
     return {
       task: null,
+      viewTask: null,
       id: null,
       errors: []
     }
@@ -67,8 +102,13 @@ export default {
   mounted () {
     if (this.$route.params.id) {
       this.id = this.$route.params.id
+      console.log(this.$route)
       taskService.getTask(this.id).then(res => {
-        this.task = res.data
+        if (this.$route.fullPath.includes('/view/')) {
+          this.viewTask = res.data
+        } else {
+          this.task = res.data
+        }
       })
     } else {
       this.task = new TaskModel()
@@ -109,5 +149,11 @@ export default {
 <style>
 .mt-50{
   margin-top: 50px;
+}
+.task-detail{
+  text-align: left;
+}
+.ta-right{
+  text-align: right;
 }
 </style>
