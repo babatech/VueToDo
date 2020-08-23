@@ -36,7 +36,7 @@
 
 <script>
 import vueHeader from './header'
-import TaskModel from '@/models/Task'
+import TaskModel from '@/models/Task.model'
 export default {
   name: 'Task',
   components: { vueHeader },

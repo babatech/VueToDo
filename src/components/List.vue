@@ -8,26 +8,35 @@
         <th scope="col"><font-awesome-icon :icon="['fas', 'tools']" /></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-if="tasks.length>0">
       <tr v-for="(task, index) in tasks " :key="index">
-        <th scope="row">1</th>
-        <td>{{task.title}}</td>
-        <td>{{task.datetime}}</td>
-        <td>@mdo</td>
+        <th scope="row">{{index}}</th>
+        <td><a v-bind:href="'view/'+task.id">{{task.title}}</a></td>
+        <td><a v-bind:href="'view/'+task.id">{{task.datetime}}</a></td>
+        <td>
+          <a v-bind:href="'view/'+task.id"><font-awesome-icon :icon="['fas', 'book-open']" /></a>
+          <a v-bind:href="'edit/'+task.id"><font-awesome-icon :icon="['fas', 'edit']" /></a>
+          <a v-bind:href="'delete/'+task.id"><font-awesome-icon :icon="['fas', 'trash-alt']" /></a>
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
+import taskService from '@/services/task.service'
 export default {
   name: 'taskList',
-  props: [ 'tasks' ],
   data () {
-    return {}
+    return {
+      tasks: []
+    }
   },
   mounted () {
-    console.log(this.tasks)
+    taskService.getAllTasks().then(res => {
+      this.tasks = res.data
+      console.log(this.tasks)
+    })
   },
   methods: {}
 }
