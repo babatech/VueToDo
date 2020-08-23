@@ -32,14 +32,20 @@
           <th scope="col">#</th>
           <th scope="col" class="task-title">Task title</th>
           <th scope="col">Due date</th>
+          <th scope="col">State</th>
           <th scope="col"><font-awesome-icon :icon="['fas', 'tools']" /></th>
         </tr>
       </thead>
       <tbody v-if="tasks.length>0">
-        <tr v-for="(task, index) in tasks " :key="index">
+        <tr class="task" v-for="(task, index) in tasks " :key="index" :class="task.state ? 'complete' : 'pending'">
           <th scope="row">{{index + 1}}</th>
-          <td><a v-bind:href="'view/'+task.id">{{task.title}}</a></td>
-          <td><a v-bind:href="'view/'+task.id">{{task.datetime}}</a></td>
+          <td><a class="task-text" v-bind:href="'view/'+task.id">{{task.title}}</a></td>
+          <td><a class="task-text" v-bind:href="'view/'+task.id">{{task.datetime}}</a></td>
+          <td>
+            <a class="mark-btn" @click="changeState(task)" :title="task.state ? 'Mark as pending' : 'Mark as complete'">
+            <font-awesome-icon :icon="['fas', task.state ? 'check-square' : 'clipboard-list']" /> {{task.state ? 'Complete': 'Pending'}}
+            </a>
+          </td>
           <td>
             <a v-bind:href="'view/'+task.id"><font-awesome-icon :icon="['fas', 'book-open']" /></a>
             <a v-bind:href="'edit/'+task.id"><font-awesome-icon :icon="['fas', 'edit']" /></a>
@@ -72,6 +78,12 @@ export default {
         this.tasks = res.data
       })
     },
+    changeState (task) {
+      if (task) {
+        task.state = !task.state
+        taskService.updateTask(task.id, task).then(res => { this.getTasks() })
+      }
+    },
     deleteTask (taskID) {
       if (taskID) {
         if (confirm('Do you want to delete this task')) {
@@ -96,4 +108,10 @@ export default {
 </script>
 
 <style>
+.task.complete a.task-text{
+  text-decoration: line-through;
+}
+.task a{
+  cursor: pointer;
+}
 </style>
