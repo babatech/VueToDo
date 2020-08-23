@@ -5,12 +5,18 @@ const api = axios.create({
 
 export default {
   addTask (task) {
-    return axios.post('/tasks', task).then((res) => { return res })
+    return api.post('/tasks', task).then((res) => { return res })
+  },
+  updateTask (id, task) {
+    return api.patch('/tasks/' + id, task).then((res) => { return res })
   },
   getTask (id) {
-    return axios.get('/tasks/' + id).then((res) => { return res })
+    return api.get('/tasks/' + id).then((res) => { return res })
   },
-  getAllTasks () {
-    return api.get('/tasks').then((res) => { return res })
+  deleteTask (id) {
+    return api.delete('/tasks/' + id).then((res) => { return res })
+  },
+  getAllTasks (queryParam) {
+    return api.get('/tasks', queryParam).then((res) => { return res })
   }
 }

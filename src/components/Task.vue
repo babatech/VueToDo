@@ -21,7 +21,14 @@
                     <label for="taskDateTime">DateTime</label>
                   </div>
                   <div class="form-group col-md-8">
-                    <VueCtkDateTimePicker id="taskDateTime" v-model="task.datetime" v-bind:min-date="new Date().toISOString()" />
+                    <VueCtkDateTimePicker
+                    id="taskDateTime"
+                    label="Select Date"
+                    v-model="task.datetime"
+                    v-bind:only-date="true"
+                    format="YYYY-MM-DD"
+                    formatted="ll"
+                    v-bind:min-date="new Date().toISOString()" />
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">{{ id ? 'Update': 'Create'}}</button>
@@ -37,6 +44,7 @@
 <script>
 import vueHeader from './header'
 import TaskModel from '@/models/Task.model'
+import taskService from '@/services/task.service'
 export default {
   name: 'Task',
   components: { vueHeader },
@@ -50,6 +58,9 @@ export default {
   mounted () {
     if (this.$route.params.id) {
       this.id = this.$route.params.id
+      taskService.getTask(this.id).then(res => {
+        this.task = res.data
+      })
     } else {
       this.task = new TaskModel()
     }
@@ -67,11 +78,20 @@ export default {
       if (this.errors.length > 0) {
         return
       }
+      this.task.updateAt = new Date().toISOString()
       if (!this.id) {
         this.task.createdAt = new Date().toISOString()
+        taskService.addTask(this.task).then(res => {
+          this.redirectTo()
+        })
+      } else {
+        taskService.updateTask(this.id, this.task).then(res => {
+          this.redirectTo()
+        })
       }
-      this.task.updateAt = new Date().toISOString()
-      console.log(this.task)
+    },
+    redirectTo (path = '/') {
+      this.$router.push({path: path})
     }
   }
 }

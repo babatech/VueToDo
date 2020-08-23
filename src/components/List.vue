@@ -4,7 +4,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Task</th>
-        <th scope="col">due</th>
+        <th scope="col">Due date</th>
         <th scope="col"><font-awesome-icon :icon="['fas', 'tools']" /></th>
       </tr>
     </thead>
@@ -16,7 +16,7 @@
         <td>
           <a v-bind:href="'view/'+task.id"><font-awesome-icon :icon="['fas', 'book-open']" /></a>
           <a v-bind:href="'edit/'+task.id"><font-awesome-icon :icon="['fas', 'edit']" /></a>
-          <a v-bind:href="'delete/'+task.id"><font-awesome-icon :icon="['fas', 'trash-alt']" /></a>
+          <a @click="deleteTask(task.id)"><font-awesome-icon :icon="['fas', 'trash-alt']" /></a>
         </td>
       </tr>
     </tbody>
@@ -33,12 +33,22 @@ export default {
     }
   },
   mounted () {
-    taskService.getAllTasks().then(res => {
-      this.tasks = res.data
-      console.log(this.tasks)
-    })
+    this.getTasks()
   },
-  methods: {}
+  methods: {
+    getTasks (queryParam = {}) {
+      taskService.getAllTasks(queryParam).then(res => {
+        this.tasks = res.data
+      })
+    },
+    deleteTask (taskID) {
+      if (taskID) {
+        if (confirm('Do you want to delete this task')) {
+          taskService.deleteTask(taskID).then(res => { this.getTasks() })
+        }
+      }
+    }
+  }
 }
 </script>
 
