@@ -2,11 +2,11 @@
   <div>
     <vue-header></vue-header>
     <div class="container">
-      <div class="row justify-content-md-center mt-50" v-if="task">
+      <div class="row justify-content-md-center mt-50" >
         <div class="col-md-7">
           <div class="card">
-            <h4 class="card-title mt-50">{{ id ? 'Edit': 'New'}} Task</h4>
-            <div class="card-body">
+            <h4 class="card-title mt-50">{{ id ? task ? 'Edit' : '' : 'New'}} Task {{viewTask ? 'Detail' : ''}}</h4>
+            <div class="card-body" v-if="task">
               <form @submit="checkForm">
                 <div class="row">
                   <div class="col-md-4">
@@ -43,14 +43,7 @@
                 <button type="button" class="btn btn-secondary" @click="redirectTo()">Cancel</button>
               </form>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-md-center mt-50" v-if="viewTask">
-        <div class="col-md-7">
-          <div class="card">
-            <h4 class="card-title mt-50">Task Detail</h4>
-            <div class="card-body task-detail">
+            <div class="card-body task-detail" v-if="viewTask">
               <div class="row">
                 <div class="col-md-6">
                 </div>
@@ -100,7 +93,7 @@ export default {
     }
   },
   mounted () {
-    if (this.$route.params.id) {
+    if (this.$route && this.$route.params.id) {
       this.id = this.$route.params.id
       console.log(this.$route)
       taskService.getTask(this.id).then(res => {

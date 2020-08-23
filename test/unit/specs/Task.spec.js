@@ -6,6 +6,6 @@ describe('Task.vue', () => {
     const Constructor = Vue.extend(Task)
     const vm = new Constructor().$mount()
     expect(vm.$el.querySelector('.card-title').textContent)
-      .toEqual('New Task')
+      .toMatch('Task')
   })
 })
