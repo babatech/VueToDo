@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Task</th>
+        <th scope="col" class="task-title">Task title</th>
         <th scope="col">Due date</th>
         <th scope="col"><font-awesome-icon :icon="['fas', 'tools']" /></th>
       </tr>

@@ -2,7 +2,7 @@
   <div>
     <vue-header></vue-header>
     <div class="container">
-      <h2>List of tasks</h2>
+      <h2 class="home-title">Welcome to To Do App</h2>
       <task-list></task-list>
     </div>
   </div>
