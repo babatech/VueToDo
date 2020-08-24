@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="tasks && tasks.length>0">
+    <div v-if="tasks">
       <div class="row">
         <form class="col-md-8 form-inline"  @submit="search">
           <div class="form-row align-items-center">
@@ -33,7 +33,7 @@
             </label>
           </div>
       </div>
-      <table class="table table-dark">
+      <table class="table table-dark" v-if="tasks.length>0">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -64,15 +64,15 @@
           </template>
         </tbody>
       </table>
-    </div>
-    <div v-if="tasks && tasks.length===0">
-      <div class="alert alert-info" role="alert">
-        <span v-if="todayOnly">
-          No Task for today
-        </span>
-        <span v-if="!todayOnly">
-          No upcoming task
-        </span>
+      <div v-if="tasks.length===0">
+        <div class="alert alert-info" role="alert">
+          <span v-if="todayOnly">
+            No Task for today
+          </span>
+          <span v-if="!todayOnly">
+            No upcoming task
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -124,15 +124,15 @@ export default {
     },
     search: function (e) {
       e.preventDefault()
+      let param = {}
       if (this.searchText) {
-        let param = {}
         if (this.searchType) {
           param.title_like = this.searchText
         } else {
           param.q = this.searchText
         }
-        this.getTasks(param)
       }
+      this.getTasks(param)
     }
   }
 }
