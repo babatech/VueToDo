@@ -1,6 +1,8 @@
 # to-do-app
 
 > To do application in vue.js
+> For REST API, visit this [Server repository](https://github.com/babatech/json-server)
+> Server is required for running this application
 
 ## Build Setup
 
@@ -14,9 +16,11 @@ npm run dev
 # build for production with minification
 npm run build
 
+# Run Test cases
+npm run test
+
 # build for production and view the bundle analyzer report
 npm run build --report
 
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
