@@ -75,6 +75,9 @@
         </div>
       </div>
     </div>
+    <div v-if="searchCount===0">
+      <div class="alert alert-info loading-box">Loading tasks</div>
+    </div>
   </div>
 </template>
 
@@ -88,6 +91,7 @@ export default {
       tasks: [],
       searchText: '',
       date: new Date(),
+      searchCount: 0,
       hideCompleteTask: false,
       searchType: true
     }
@@ -108,6 +112,7 @@ export default {
       taskService.getAllTasks(queryParam).then(res => {
         this.tasks = res.data
       })
+      this.searchCount++
     },
     changeState (task) {
       if (task) {
