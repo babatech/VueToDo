@@ -33,7 +33,7 @@
             </label>
           </div>
       </div>
-      <table class="table table-dark" v-if="tasks.length>0">
+      <table class="table table-dark task-table" v-if="tasks.length>0">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -66,12 +66,8 @@
       </table>
       <div v-if="tasks.length===0">
         <div class="alert alert-info" role="alert">
-          <span v-if="todayOnly">
-            No Task for today
-          </span>
-          <span v-if="!todayOnly">
-            No upcoming task
-          </span>
+          <span v-if="todayOnly" class="no-task-info">No Task for today</span>
+          <span v-if="!todayOnly" class="no-task-info">No upcoming task</span>
         </div>
       </div>
     </div>
