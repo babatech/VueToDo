@@ -39,17 +39,17 @@
       <tbody v-if="tasks.length>0">
         <tr class="task" v-for="(task, index) in tasks " :key="index" :class="task.state ? 'complete' : 'pending'">
           <th scope="row">{{index + 1}}</th>
-          <td><a class="task-text" v-bind:href="'view/'+task.id">{{task.title}}</a></td>
-          <td><a class="task-text" v-bind:href="'view/'+task.id">{{task.datetime}}</a></td>
+          <td><a class="task-text" title="Click here to open task" v-bind:href="'view/'+task.id">{{task.title}}</a></td>
+          <td><a class="task-text" title="Click here to open task" v-bind:href="'view/'+task.id">{{task.datetime}}</a></td>
           <td>
-            <a class="mark-btn" @click="changeState(task)" :title="task.state ? 'Mark as pending' : 'Mark as complete'">
+            <a class="mark-btn" @click="changeState(task)" :title="'Click hee to mark this task as ' + (task.state ? 'pending' : 'complete')">
             <font-awesome-icon :icon="['fas', task.state ? 'check-square' : 'clipboard-list']" /> {{task.state ? 'Complete': 'Pending'}}
             </a>
           </td>
           <td>
-            <a v-bind:href="'view/'+task.id"><font-awesome-icon :icon="['fas', 'book-open']" /></a>
-            <a v-bind:href="'edit/'+task.id"><font-awesome-icon :icon="['fas', 'edit']" /></a>
-            <a @click="deleteTask(task.id)"><font-awesome-icon :icon="['fas', 'trash-alt']" /></a>
+            <a title="Click here to open task" v-bind:href="'view/'+task.id"><font-awesome-icon :icon="['fas', 'book-open']" /></a>
+            <a title="Click here to edit task" v-bind:href="'edit/'+task.id"><font-awesome-icon :icon="['fas', 'edit']" /></a>
+            <a title="Click here to delete task" @click="deleteTask(task.id)"><font-awesome-icon :icon="['fas', 'trash-alt']" /></a>
           </td>
         </tr>
       </tbody>
@@ -113,5 +113,6 @@ export default {
 }
 .task a{
   cursor: pointer;
+  color: white;
 }
 </style>
