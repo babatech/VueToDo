@@ -1,7 +1,9 @@
 # to-do-app
 
-> To do application in vue.js
+> To do application Front-end in vue.js
+
 > For REST API, visit this [Server repository](https://github.com/babatech/json-server)
+
 > Server is required for running this application
 
 ## Build Setup
